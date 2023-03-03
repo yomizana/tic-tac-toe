@@ -7,33 +7,37 @@ function Player(playerName, token) {
 function Cell(player) {
   let value = 0;
 
-  const placeToken = () => {
+  const addToken = () => {
     value = player.token;
   };
 
   const getValue = () => value;
 
-  return { placeToken, getValue };
+  return { addToken, getValue };
 }
 
 function Gameboard() {
-  const gameboard = [];
+  const board = [];
   const rows = 3;
   const columns = 3;
 
   // Generates a 3x3 array grid with objects
   for (let i = 0; i < rows; i += 1) {
-    gameboard[i] = [];
+    board[i] = [];
 
     for (let j = 0; j < columns; j += 1) {
-      gameboard[i].push(Cell());
+      board[i].push(Cell());
     }
   }
 
+  const getBoard = () => board;
+
+  const placeToken = () => {};
+
   // Displays the board on the console
   const displayBoard = () => {
-    const board = gameboard.map((row) => row.map((cell) => cell.getValue()));
-    console.log(board);
+    const valueBoard = game.map((row) => row.map((cell) => cell.getValue()));
+    console.log(valueBoard);
   };
 
   return { displayBoard };
