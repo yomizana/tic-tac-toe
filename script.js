@@ -36,7 +36,7 @@ function Gameboard() {
 
   // Displays the board on the console
   const displayBoard = () => {
-    const valueBoard = game.map((row) => row.map((cell) => cell.getValue()));
+    const valueBoard = board.map((row) => row.map((cell) => cell.getValue()));
     console.log(valueBoard);
   };
 
