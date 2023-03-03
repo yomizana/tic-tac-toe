@@ -1,11 +1,19 @@
 /* eslint-disable no-console */
 
-function Cell() {
-  const value = 0;
+function Player(playerName, token) {
+  return { playerName, token };
+}
+
+function Cell(player) {
+  let value = 0;
+
+  const placeToken = () => {
+    value = player.token;
+  };
 
   const getValue = () => value;
 
-  return { getValue };
+  return { placeToken, getValue };
 }
 
 function Gameboard() {
@@ -13,7 +21,7 @@ function Gameboard() {
   const rows = 3;
   const columns = 3;
 
-  // Generate 3x3 array grid.
+  // Generates a 3x3 array grid with objects
   for (let i = 0; i < rows; i += 1) {
     gameboard[i] = [];
 
@@ -22,12 +30,20 @@ function Gameboard() {
     }
   }
 
+  // Displays the board on the console
   const displayBoard = () => {
     const board = gameboard.map((row) => row.map((cell) => cell.getValue()));
     console.log(board);
   };
 
   return { displayBoard };
+}
+
+function gameController() {
+  const playerOne = Player("Yomi", "X");
+  const playerTwo = Player("Alix", "O");
+
+  let activePlayer = playerOne;
 }
 
 const game = Gameboard();
