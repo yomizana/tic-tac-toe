@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 
 function Player(name, token) {
@@ -49,8 +50,9 @@ function Gameboard() {
 }
 
 function gameController() {
-  const playerOne = Player("Yomi", "X");
-  const playerTwo = Player("Alix", "O");
+  const playerOne = Player("Player One", "X");
+  const playerTwo = Player("Player Two", "O");
+
   let activePlayer = playerOne;
   const board = Gameboard();
 
@@ -59,8 +61,11 @@ function gameController() {
   };
 
   const newRound = () => {
-    console.log(`Current active player: ${activePlayer.name}`);
     board.displayBoard();
+    console.log(
+      `%cCurrent active player: ${activePlayer.name}`,
+      "color: white; background-color: black; font-size: larger"
+    );
   };
 
   const playRound = (row, column) => {
@@ -70,6 +75,11 @@ function gameController() {
   };
 
   newRound();
+
+  console.log(
+    "%cYou can play using the game.playRound() function! \n",
+    "color: white; background-color: black; font-size: larger"
+  );
 
   return { playRound };
 }
