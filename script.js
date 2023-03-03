@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 
-function Player(playerName, token) {
-  return { playerName, token };
+function Player(name, token) {
+  return { name, token };
 }
 
-function Cell(player) {
+function Cell() {
   let value = 0;
 
-  const addToken = () => {
-    value = player.token;
+  const addToken = (activePlayer) => {
+    value = activePlayer.token;
   };
 
   const getValue = () => value;
@@ -21,7 +21,7 @@ function Gameboard() {
   const rows = 3;
   const columns = 3;
 
-  // Generates a 3x3 array grid with objects
+  // Generates a 3x3 array grid with Cell objects
   for (let i = 0; i < rows; i += 1) {
     board[i] = [];
 
@@ -32,7 +32,12 @@ function Gameboard() {
 
   const getBoard = () => board;
 
-  const placeToken = () => {};
+  // Places player.token in the provided coordinates
+  const placeToken = (row, column, activePlayer) => {
+    if (board[row][column].getValue() === 0) {
+      board[row][column].addToken(activePlayer);
+    }
+  };
 
   // Displays the board on the console
   const displayBoard = () => {
@@ -40,15 +45,33 @@ function Gameboard() {
     console.log(valueBoard);
   };
 
-  return { displayBoard };
+  return { getBoard, placeToken, displayBoard };
 }
 
 function gameController() {
   const playerOne = Player("Yomi", "X");
   const playerTwo = Player("Alix", "O");
-
   let activePlayer = playerOne;
+  const board = Gameboard();
+
+  const switchActivePlayer = () => {
+    activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
+  };
+
+  const newRound = () => {
+    console.log(`Current active player: ${activePlayer.name}`);
+    board.displayBoard();
+  };
+
+  const playRound = (row, column) => {
+    board.placeToken(row, column, activePlayer);
+    switchActivePlayer();
+    newRound();
+  };
+
+  newRound();
+
+  return { playRound };
 }
 
-const game = Gameboard();
-game.displayBoard();
+const game = gameController();
