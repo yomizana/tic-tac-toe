@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 /* eslint-disable no-console */
 
 function Player(name, token) {
@@ -41,12 +40,65 @@ function Gameboard() {
   };
 
   // Displays the board on the console
-  const displayBoard = () => {
+  const getValueBoard = () => {
     const valueBoard = board.map((row) => row.map((cell) => cell.getValue()));
-    console.log(valueBoard);
+    return valueBoard;
   };
 
-  return { getBoard, placeToken, displayBoard };
+  return { getBoard, placeToken, getValueBoard };
+}
+
+function checkForWin(board, token) {
+  let count = 0;
+
+  // Horizontal Check
+  for (let i = 0; i < 3; i += 1) {
+    for (let j = 0; j < 3; j += 1) {
+      if (board[i][j] === token) {
+        count += 1;
+        if (count === 3) return true;
+      } else {
+        count = 0;
+      }
+    }
+  }
+
+  // Vertical Check
+  for (let i = 0; i < 3; i += 1) {
+    for (let j = 0; j < 3; j += 1) {
+      if (board[j][i] === token) {
+        count += 1;
+        if (count === 3) return true;
+      } else {
+        count = 0;
+      }
+    }
+  }
+
+  // Diagonal Check #1
+  for (let i = 0; i < 3; i += 1) {
+    if (board[i][i] === token) {
+      count += 1;
+      if (count === 3) return true;
+    } else {
+      count = 0;
+    }
+  }
+
+  // Diagonal Check #2
+
+  let column = 2;
+  for (let i = 0; i < 3; i += 1) {
+    if (board[i][column] === token) {
+      count += 1;
+      column -= 1;
+      if (count === 3) return true;
+    } else {
+      count = 0;
+    }
+  }
+
+  return false;
 }
 
 function gameController() {
@@ -61,15 +113,16 @@ function gameController() {
   };
 
   const newRound = () => {
-    board.displayBoard();
+    console.log(board.getValueBoard());
     console.log(
-      `%cCurrent active player: ${activePlayer.name}`,
+      `%cCurrent active player: ${activePlayer.name}. Your Token is: ${activePlayer.token}`,
       "color: white; background-color: black; font-size: larger"
     );
   };
 
   const playRound = (row, column) => {
     board.placeToken(row, column, activePlayer);
+    console.log(checkForWin(board.getValueBoard(), activePlayer.token));
     switchActivePlayer();
     newRound();
   };
