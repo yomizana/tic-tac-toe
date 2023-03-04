@@ -36,7 +36,10 @@ function Gameboard() {
   const placeToken = (row, column, token) => {
     if (board[row][column].getValue() === 0) {
       board[row][column].addToken(token);
+      return true;
     }
+
+    throw new Error("Cell already contains a value!");
   };
 
   // Displays the board on the console
@@ -123,15 +126,23 @@ function gameController() {
   };
 
   const playRound = (row, column) => {
-    board.placeToken(row, column, activePlayer.token);
-    console.log(checkForWin(board.getValueBoard(), activePlayer.token));
-    switchActivePlayer();
+    try {
+      board.placeToken(row, column, activePlayer.token);
 
-    turn += 1;
+      console.log(checkForWin(board.getValueBoard(), activePlayer.token));
+      switchActivePlayer();
 
-    if (turn === 9) console.log("The game is TIED.");
+      turn += 1;
 
-    newRound();
+      if (turn === 9) console.log("The game is TIED.");
+
+      newRound();
+    } catch (e) {
+      console.error(
+        `%c${e.message}`,
+        "color: red; background-color: black; font-size: larger"
+      );
+    }
   };
 
   newRound();
