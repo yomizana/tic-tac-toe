@@ -7,8 +7,8 @@ function Player(name, token) {
 function Cell() {
   let value = 0;
 
-  const addToken = (activePlayer) => {
-    value = activePlayer.token;
+  const addToken = (token) => {
+    value = token;
   };
 
   const getValue = () => value;
@@ -33,9 +33,9 @@ function Gameboard() {
   const getBoard = () => board;
 
   // Places player.token in the provided coordinates
-  const placeToken = (row, column, activePlayer) => {
+  const placeToken = (row, column, token) => {
     if (board[row][column].getValue() === 0) {
-      board[row][column].addToken(activePlayer);
+      board[row][column].addToken(token);
     }
   };
 
@@ -104,6 +104,7 @@ function checkForWin(board, token) {
 function gameController() {
   const playerOne = Player("Player One", "X");
   const playerTwo = Player("Player Two", "O");
+  let turn = 1;
 
   let activePlayer = playerOne;
   const board = Gameboard();
@@ -113,6 +114,7 @@ function gameController() {
   };
 
   const newRound = () => {
+    console.log({ turn });
     console.log(board.getValueBoard());
     console.log(
       `%cCurrent active player: ${activePlayer.name}. Your Token is: ${activePlayer.token}`,
@@ -121,9 +123,14 @@ function gameController() {
   };
 
   const playRound = (row, column) => {
-    board.placeToken(row, column, activePlayer);
+    board.placeToken(row, column, activePlayer.token);
     console.log(checkForWin(board.getValueBoard(), activePlayer.token));
     switchActivePlayer();
+
+    turn += 1;
+
+    if (turn === 9) console.log("The game is TIED.");
+
     newRound();
   };
 
