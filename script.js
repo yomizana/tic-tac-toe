@@ -89,7 +89,6 @@ function checkForWin(board, token) {
   }
 
   // Diagonal Check #2
-
   let column = 2;
   for (let i = 0; i < 3; i += 1) {
     if (board[i][column] === token) {
@@ -134,7 +133,7 @@ function gameController() {
 
       turn += 1;
 
-      if (turn === 9) console.log("The game is TIED.");
+      if (turn === 10) console.log("The game is TIED.");
 
       newRound();
     } catch (e) {
