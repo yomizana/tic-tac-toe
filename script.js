@@ -113,12 +113,6 @@ function gameController() {
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
   };
 
-  const resetBoard = () => {
-    turn = 1;
-    board = Gameboard();
-    console.clear();
-  };
-
   const newRound = () => {
     if (turn >= 10) {
       console.log(board.getValueBoard());
@@ -141,21 +135,32 @@ function gameController() {
     try {
       board.placeToken(row, column, activePlayer.token);
 
-      console.log(
-        "CHECKFORWIN:",
-        checkForWin(board.getValueBoard(), activePlayer.token)
-      );
-      switchActivePlayer();
+      if (checkForWin(board.getValueBoard(), activePlayer.token)) {
+        console.log(board.getValueBoard());
+        console.log(
+          `%c${activePlayer.name} has won the game. Use the game.resetBoard() function to play again!`,
+          "color: yellow; background-color: black; font-size: larger"
+        );
+      } else {
+        switchActivePlayer();
 
-      turn += 1;
+        turn += 1;
 
-      newRound();
+        newRound();
+      }
     } catch (e) {
       console.error(
         `%c${e.message}`,
         "color: red; background-color: black; font-size: larger"
       );
     }
+  };
+
+  const resetBoard = () => {
+    turn = 1;
+    board = Gameboard();
+    console.clear();
+    newRound();
   };
 
   newRound();
