@@ -61,8 +61,8 @@ function checkForWin(board, token) {
         count += 1;
         if (count === 3) return true;
       }
-      count = 0;
     }
+    count = 0;
   }
 
   // Vertical Check
@@ -72,8 +72,8 @@ function checkForWin(board, token) {
         count += 1;
         if (count === 3) return true;
       }
-      count = 0;
     }
+    count = 0;
   }
 
   // Diagonal Check #1
@@ -141,7 +141,10 @@ function gameController() {
     try {
       board.placeToken(row, column, activePlayer.token);
 
-      console.log(checkForWin(board.getValueBoard(), activePlayer.token));
+      console.log(
+        "CHECKFORWIN:",
+        checkForWin(board.getValueBoard(), activePlayer.token)
+      );
       switchActivePlayer();
 
       turn += 1;
