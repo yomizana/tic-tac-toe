@@ -109,19 +109,34 @@ function gameController() {
   let turn = 1;
 
   let activePlayer = playerOne;
-  const board = Gameboard();
+  let board = Gameboard();
 
   const switchActivePlayer = () => {
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
   };
 
+  const resetBoard = () => {
+    turn = 1;
+    board = Gameboard();
+    console.clear();
+  };
+
   const newRound = () => {
+    if (turn >= 10) {
+      console.log(board.getValueBoard());
+      console.log(
+        `%cThe game is tied. Use the game.resetBoard() command!`,
+        "color: red; background-color: black; font-size: larger"
+      );
+      return false;
+    }
     console.log({ turn });
     console.log(board.getValueBoard());
     console.log(
       `%cCurrent active player: ${activePlayer.name}. Your Token is: ${activePlayer.token}`,
       "color: white; background-color: black; font-size: larger"
     );
+    return true;
   };
 
   const playRound = (row, column) => {
@@ -132,8 +147,6 @@ function gameController() {
       switchActivePlayer();
 
       turn += 1;
-
-      if (turn === 10) console.log("The game is TIED.");
 
       newRound();
     } catch (e) {
@@ -151,7 +164,7 @@ function gameController() {
     "color: white; background-color: black; font-size: larger"
   );
 
-  return { playRound };
+  return { playRound, resetBoard };
 }
 
 const game = gameController();
