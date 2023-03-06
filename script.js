@@ -24,7 +24,6 @@ function Gameboard() {
   // Generates a 3x3 array grid with Cell objects
   for (let i = 0; i < rows; i += 1) {
     board[i] = [];
-
     for (let j = 0; j < columns; j += 1) {
       board[i].push(Cell());
     }
@@ -118,7 +117,7 @@ function gameController() {
       console.log(board.getValueBoard());
       console.log(
         `%cThe game is tied. Use the game.resetBoard() command!`,
-        "color: red; background-color: black; font-size: larger"
+        "color: yellow; background-color: black; font-size: larger"
       );
       return false;
     }
