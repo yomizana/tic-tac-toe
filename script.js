@@ -60,9 +60,8 @@ function checkForWin(board, token) {
       if (board[i][j] === token) {
         count += 1;
         if (count === 3) return true;
-      } else {
-        count = 0;
       }
+      count = 0;
     }
   }
 
@@ -72,9 +71,8 @@ function checkForWin(board, token) {
       if (board[j][i] === token) {
         count += 1;
         if (count === 3) return true;
-      } else {
-        count = 0;
       }
+      count = 0;
     }
   }
 
