@@ -21,7 +21,7 @@ function Gameboard() {
 
   // Places player.mark in the provided coordinates
   const placeMark = (row, column, mark) => {
-    if (board[row][column].getValue() === 0) {
+    if (board[row][column] === 0) {
       board[row][column] = mark;
       return true;
     }
