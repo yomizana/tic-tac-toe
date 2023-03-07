@@ -99,7 +99,7 @@ function gameController() {
 
   const newRound = () => {
     if (turn >= 10) {
-      console.log(board.getValueBoard());
+      board.displayBoard();
       console.log(
         `%cThe game is tied. Use the game.resetBoard() command!`,
         "color: yellow; background-color: black; font-size: larger"
@@ -107,9 +107,9 @@ function gameController() {
       return false;
     }
     console.log({ turn });
-    console.log(board.getValueBoard());
+    board.displayBoard();
     console.log(
-      `%cCurrent active player: ${activePlayer.name}. Your Token is: ${activePlayer.token}`,
+      `%cCurrent active player: ${activePlayer.name}. Your Token is: ${activePlayer.mark}`,
       "color: white; background-color: black; font-size: larger"
     );
     return true;
@@ -117,10 +117,10 @@ function gameController() {
 
   const playRound = (row, column) => {
     try {
-      board.placeToken(row, column, activePlayer.token);
+      board.placeMark(row, column, activePlayer.mark);
 
-      if (checkForWin(board.getValueBoard(), activePlayer.token)) {
-        console.log(board.getValueBoard());
+      if (checkForWin(board, activePlayer.mark)) {
+        board.displayBoard();
         console.log(
           `%c${activePlayer.name} has won the game. Use the game.resetBoard() function to play again!`,
           "color: yellow; background-color: black; font-size: larger"
