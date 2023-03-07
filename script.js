@@ -6,16 +6,18 @@ function Player(name, mark) {
 
 const gameBoard = (() => {
   const board = [];
-  const rows = 3;
-  const columns = 3;
 
   // Generates a 3x3 array grid filled with 0s
-  for (let i = 0; i < rows; i += 1) {
-    board[i] = [];
-    for (let j = 0; j < columns; j += 1) {
-      board[i].push(0);
+  const generateBoard = () => {
+    for (let i = 0; i < 3; i += 1) {
+      board[i] = [];
+      for (let j = 0; j < 3; j += 1) {
+        board[i].push(0);
+      }
     }
-  }
+
+    return board;
+  };
 
   // Places player.mark in the provided coordinates
   const placeMark = (row, column, mark) => {
@@ -30,7 +32,7 @@ const gameBoard = (() => {
   // Displays the board on the console
   const displayBoard = () => console.log(board);
 
-  return { board, placeMark, displayBoard };
+  return { generateBoard, placeMark, displayBoard };
 })();
 
 function checkForWin(board, mark) {
@@ -86,10 +88,10 @@ function checkForWin(board, mark) {
 function gameController() {
   const playerOne = Player("Player One", "X");
   const playerTwo = Player("Player Two", "O");
-  let turn = 1;
 
   let activePlayer = playerOne;
-  // let board = Gameboard();
+  let board = gameBoard.generateBoard();
+  let turn = 1;
 
   const switchActivePlayer = () => {
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
@@ -117,7 +119,7 @@ function gameController() {
     try {
       gameBoard.placeMark(row, column, activePlayer.mark);
 
-      if (checkForWin(gameBoard.board, activePlayer.mark)) {
+      if (checkForWin(board, activePlayer.mark)) {
         gameBoard.displayBoard();
         console.log(
           `%c${activePlayer.name} has won the game. Use the game.resetBoard() function to play again!`,
@@ -138,9 +140,9 @@ function gameController() {
     }
   };
 
-  const resetBoard = () => {
+  const startOver = () => {
     turn = 1;
-    board = Gameboard();
+    board = gameBoard.generateBoard();
     console.clear();
     newRound();
   };
@@ -152,7 +154,7 @@ function gameController() {
     "color: white; background-color: black; font-size: larger"
   );
 
-  return { playRound, resetBoard };
+  return { playRound, startOver };
 }
 
 const game = gameController();
