@@ -4,7 +4,7 @@ function Player(name, mark) {
   return { name, mark };
 }
 
-function Gameboard() {
+const gameBoard = (() => {
   const board = [];
   const rows = 3;
   const columns = 3;
@@ -16,8 +16,6 @@ function Gameboard() {
       board[i].push(0);
     }
   }
-
-  const getBoard = () => board;
 
   // Places player.mark in the provided coordinates
   const placeMark = (row, column, mark) => {
@@ -32,8 +30,8 @@ function Gameboard() {
   // Displays the board on the console
   const displayBoard = () => console.log(board);
 
-  return { getBoard, placeMark, displayBoard };
-}
+  return { board, placeMark, displayBoard };
+})();
 
 function checkForWin(board, mark) {
   let count = 0;
@@ -91,7 +89,7 @@ function gameController() {
   let turn = 1;
 
   let activePlayer = playerOne;
-  let board = Gameboard();
+  // let board = Gameboard();
 
   const switchActivePlayer = () => {
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
@@ -99,7 +97,7 @@ function gameController() {
 
   const newRound = () => {
     if (turn >= 10) {
-      board.displayBoard();
+      gameBoard.displayBoard();
       console.log(
         `%cThe game is tied. Use the game.resetBoard() command!`,
         "color: yellow; background-color: black; font-size: larger"
@@ -107,7 +105,7 @@ function gameController() {
       return false;
     }
     console.log({ turn });
-    board.displayBoard();
+    gameBoard.displayBoard();
     console.log(
       `%cCurrent active player: ${activePlayer.name}. Your Token is: ${activePlayer.mark}`,
       "color: white; background-color: black; font-size: larger"
@@ -117,10 +115,10 @@ function gameController() {
 
   const playRound = (row, column) => {
     try {
-      board.placeMark(row, column, activePlayer.mark);
+      gameBoard.placeMark(row, column, activePlayer.mark);
 
-      if (checkForWin(board.getBoard(), activePlayer.mark)) {
-        board.displayBoard();
+      if (checkForWin(gameBoard.board, activePlayer.mark)) {
+        gameBoard.displayBoard();
         console.log(
           `%c${activePlayer.name} has won the game. Use the game.resetBoard() function to play again!`,
           "color: yellow; background-color: black; font-size: larger"
