@@ -35,13 +35,13 @@ function Gameboard() {
   return { getBoard, placeMark, displayBoard };
 }
 
-function checkForWin(board, token) {
+function checkForWin(board, mark) {
   let count = 0;
 
   // Horizontal Check
   for (let i = 0; i < 3; i += 1) {
     for (let j = 0; j < 3; j += 1) {
-      if (board[i][j] === token) {
+      if (board[i][j] === mark) {
         count += 1;
         if (count === 3) return true;
       }
@@ -52,7 +52,7 @@ function checkForWin(board, token) {
   // Vertical Check
   for (let i = 0; i < 3; i += 1) {
     for (let j = 0; j < 3; j += 1) {
-      if (board[j][i] === token) {
+      if (board[j][i] === mark) {
         count += 1;
         if (count === 3) return true;
       }
@@ -62,7 +62,7 @@ function checkForWin(board, token) {
 
   // Diagonal Check #1
   for (let i = 0; i < 3; i += 1) {
-    if (board[i][i] === token) {
+    if (board[i][i] === mark) {
       count += 1;
       if (count === 3) return true;
     } else {
@@ -73,7 +73,7 @@ function checkForWin(board, token) {
   // Diagonal Check #2
   let column = 2;
   for (let i = 0; i < 3; i += 1) {
-    if (board[i][column] === token) {
+    if (board[i][column] === mark) {
       count += 1;
       column -= 1;
       if (count === 3) return true;
