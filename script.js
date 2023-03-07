@@ -9,33 +9,30 @@ function Gameboard() {
   const rows = 3;
   const columns = 3;
 
-  // Generates a 3x3 array grid with Cell objects
+  // Generates a 3x3 array grid filled with 0s
   for (let i = 0; i < rows; i += 1) {
     board[i] = [];
     for (let j = 0; j < columns; j += 1) {
-      board[i].push(Cell());
+      board[i].push(0);
     }
   }
 
   const getBoard = () => board;
 
-  // Places player.token in the provided coordinates
-  const placeToken = (row, column, token) => {
+  // Places player.mark in the provided coordinates
+  const placeMark = (row, column, mark) => {
     if (board[row][column].getValue() === 0) {
-      board[row][column].addToken(token);
+      board[row][column] = mark;
       return true;
     }
 
-    throw new Error("Cell already contains a value!");
+    throw new Error("This position already contains a value!");
   };
 
   // Displays the board on the console
-  const getValueBoard = () => {
-    const valueBoard = board.map((row) => row.map((cell) => cell.getValue()));
-    return valueBoard;
-  };
+  const displayBoard = () => console.log(board);
 
-  return { getBoard, placeToken, getValueBoard };
+  return { getBoard, placeMark, displayBoard };
 }
 
 function checkForWin(board, token) {
