@@ -119,7 +119,7 @@ function gameController() {
     try {
       board.placeMark(row, column, activePlayer.mark);
 
-      if (checkForWin(board, activePlayer.mark)) {
+      if (checkForWin(board.getBoard(), activePlayer.mark)) {
         board.displayBoard();
         console.log(
           `%c${activePlayer.name} has won the game. Use the game.resetBoard() function to play again!`,
