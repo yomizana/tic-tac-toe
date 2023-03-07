@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
-function Player(name, token) {
-  return { name, token };
+function Player(name, mark) {
+  return { name, mark };
 }
 
 function Gameboard() {
