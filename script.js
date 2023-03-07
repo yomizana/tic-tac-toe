@@ -4,18 +4,6 @@ function Player(name, token) {
   return { name, token };
 }
 
-function Cell() {
-  let value = 0;
-
-  const addToken = (token) => {
-    value = token;
-  };
-
-  const getValue = () => value;
-
-  return { addToken, getValue };
-}
-
 function Gameboard() {
   const board = [];
   const rows = 3;
