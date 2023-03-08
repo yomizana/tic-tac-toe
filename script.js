@@ -154,7 +154,7 @@ function gameController() {
     "color: white; background-color: black; font-size: larger"
   );
 
-  return { playRound, startOver };
+  return { board, playRound, startOver };
 }
 
 const displayController = (() => {
@@ -176,5 +176,19 @@ const displayController = (() => {
     }
   };
 
+  // Populates 3x3 grid with board values
+  const populateGrid = () => {
+    for (let i = 0; i < 3; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
+        const cell = document.querySelector(
+          `[data-row="${i}"][data-column="${j}"]`
+        );
+
+        cell.textContent = game.board[i][j];
+      }
+    }
+  };
+
   generateGrid();
+  populateGrid();
 })();
