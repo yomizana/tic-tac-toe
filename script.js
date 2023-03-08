@@ -157,7 +157,7 @@ function gameController() {
   return { board, playRound, startOver };
 }
 
-const displayController = (() => {
+(function displayController() {
   const game = gameController();
 
   // Generates 3x3 grid
