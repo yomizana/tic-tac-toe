@@ -157,4 +157,24 @@ function gameController() {
   return { playRound, startOver };
 }
 
-const game = gameController();
+const displayController = (() => {
+  const game = gameController();
+
+  // Generates 3x3 grid
+  const generateGrid = () => {
+    const gridContainer = document.querySelector(".grid-container");
+
+    for (let i = 0; i < 3; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.dataset.row = [i];
+        cell.dataset.column = [j];
+
+        gridContainer.appendChild(cell);
+      }
+    }
+  };
+
+  generateGrid();
+})();
