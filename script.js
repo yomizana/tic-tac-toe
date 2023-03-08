@@ -166,7 +166,7 @@ const displayController = (() => {
 
     for (let i = 0; i < 3; i += 1) {
       for (let j = 0; j < 3; j += 1) {
-        const cell = document.createElement("div");
+        const cell = document.createElement("button");
         cell.classList.add("cell");
         cell.dataset.row = [i];
         cell.dataset.column = [j];
