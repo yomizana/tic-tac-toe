@@ -191,4 +191,21 @@ const displayController = (() => {
 
   generateGrid();
   populateGrid();
+
+  const clickEventHandler = () => {
+    const cells = document.querySelectorAll(".cell");
+
+    const clickEvent = (row, column) => {
+      game.playRound(row, column);
+      populateGrid();
+    };
+
+    cells.forEach((cell) => {
+      cell.addEventListener("click", () =>
+        clickEvent(cell.dataset.row, cell.dataset.column)
+      );
+    });
+  };
+
+  clickEventHandler();
 })();
