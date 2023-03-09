@@ -197,13 +197,15 @@ function gameController() {
   };
 
   const updatePlayerInfo = () => {
+    const turn = game.getTurn();
     const activePlayer = game.getActivePlayer();
+    const turnInfo = document.querySelector(".turn");
     const playerInfo = document.querySelector(".player-info");
-    const message = activePlayer.name;
 
-    console.log(message);
+    console.log("displayController log:", activePlayer.name);
 
-    playerInfo.textContent = message;
+    turnInfo.textContent = `Turn: ${turn}`;
+    playerInfo.textContent = `The current active player is ${activePlayer.name} (${activePlayer.mark})`;
   };
 
   const clickEventHandler = () => {
