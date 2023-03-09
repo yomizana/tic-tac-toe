@@ -222,7 +222,7 @@ function gameController() {
     });
 
     resetButton.addEventListener("click", () => {
-      game.startOver();
+      game.newGame();
       populateGrid();
       updatePlayerInfo();
     });
