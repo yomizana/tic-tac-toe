@@ -12,7 +12,7 @@ const gameBoard = (() => {
     for (let i = 0; i < 3; i += 1) {
       board[i] = [];
       for (let j = 0; j < 3; j += 1) {
-        board[i].push(0);
+        board[i].push("");
       }
     }
 
@@ -21,7 +21,7 @@ const gameBoard = (() => {
 
   // Places player.mark in the provided coordinates
   const placeMark = (row, column, mark) => {
-    if (board[row][column] === 0) {
+    if (board[row][column] === "") {
       board[row][column] = mark;
       return true;
     }
