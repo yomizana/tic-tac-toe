@@ -181,13 +181,15 @@ function gameController() {
 
   // Populates 3x3 grid with board values
   const populateGrid = () => {
+    const board = game.getBoard();
+
     for (let i = 0; i < 3; i += 1) {
       for (let j = 0; j < 3; j += 1) {
         const cell = document.querySelector(
           `[data-row="${i}"][data-column="${j}"]`
         );
 
-        cell.textContent = game.board[i][j];
+        cell.textContent = board[i][j];
       }
     }
   };
