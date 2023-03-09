@@ -212,6 +212,7 @@ function gameController() {
       game.playRound(row, column);
       populateGrid();
       updatePlayerInfo();
+      gameStateHandler();
     };
 
     cells.forEach((cell) => {
