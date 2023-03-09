@@ -141,6 +141,7 @@ function gameController() {
   };
 
   const startOver = () => {
+    activePlayer = playerOne;
     turn = 1;
     board = gameBoard.generateBoard();
     console.clear();
