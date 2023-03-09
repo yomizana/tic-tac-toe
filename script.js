@@ -154,7 +154,10 @@ function gameController() {
     "color: white; background-color: black; font-size: larger"
   );
 
-  return { board, playRound, startOver };
+  const getActivePlayer = () => activePlayer;
+  const getBoard = () => board;
+
+  return { getBoard, playRound, startOver, getActivePlayer };
 }
 
 (function displayController() {
