@@ -194,8 +194,15 @@ function gameController() {
     }
   };
 
-  generateGrid();
-  populateGrid();
+  const updatePlayerInfo = () => {
+    const activePlayer = game.getActivePlayer();
+    const playerInfo = document.querySelector(".player-info");
+    const message = activePlayer.name;
+
+    console.log(message);
+
+    playerInfo.textContent = message;
+  };
 
   const clickEventHandler = () => {
     const cells = document.querySelectorAll(".cell");
