@@ -189,10 +189,19 @@ function gameController() {
     const turnInfo = document.querySelector(".turn");
     const playerInfo = document.querySelector(".player-info");
 
-    console.log("displayController log:", activePlayer.name);
-
     turnInfo.textContent = `Turn: ${turn}`;
     playerInfo.textContent = `The current active player is ${activePlayer.name} (${activePlayer.mark})`;
+  };
+
+  const gameStateHandler = () => {
+    const gameState = game.getGameState();
+    const announcement = document.querySelector(".announcement");
+    const activePlayer = game.getActivePlayer();
+
+    if (gameState === "won")
+      announcement.textContent = `The winner is ${activePlayer.name}`;
+
+    if (gameState === "tied") announcement.textContent = "The game is tied!";
   };
 
   const clickEventHandler = () => {
