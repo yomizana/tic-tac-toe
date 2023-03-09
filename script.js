@@ -210,6 +210,7 @@ function gameController() {
     const clickEvent = (row, column) => {
       game.playRound(row, column);
       populateGrid();
+      updatePlayerInfo();
     };
 
     cells.forEach((cell) => {
@@ -219,5 +220,8 @@ function gameController() {
     });
   };
 
+  generateGrid();
+  populateGrid();
+  updatePlayerInfo();
   clickEventHandler();
 })();
