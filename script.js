@@ -210,8 +210,9 @@ function gameController() {
 
   const clickEventHandler = () => {
     const cells = document.querySelectorAll(".cell");
+    const resetButton = document.querySelector(".reset-button");
 
-    const clickEvent = (row, column) => {
+    const cellClickEvent = (row, column) => {
       game.playRound(row, column);
       populateGrid();
       updatePlayerInfo();
@@ -219,8 +220,14 @@ function gameController() {
 
     cells.forEach((cell) => {
       cell.addEventListener("click", () =>
-        clickEvent(cell.dataset.row, cell.dataset.column)
+        cellClickEvent(cell.dataset.row, cell.dataset.column)
       );
+    });
+
+    resetButton.addEventListener("click", () => {
+      game.startOver();
+      populateGrid();
+      updatePlayerInfo();
     });
   };
 
