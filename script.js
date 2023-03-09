@@ -92,74 +92,61 @@ function gameController() {
   let activePlayer = playerOne;
   let board = gameBoard.generateBoard();
   let turn = 1;
+  let gameState = "ongoing";
 
   const switchActivePlayer = () => {
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
   };
 
-  const newRound = () => {
-    if (turn >= 10) {
-      gameBoard.displayBoard();
-      console.log(
-        `%cThe game is tied. Use the game.resetBoard() command!`,
-        "color: yellow; background-color: black; font-size: larger"
-      );
-      return false;
-    }
-    console.log({ turn });
-    gameBoard.displayBoard();
-    console.log(
-      `%cCurrent active player: ${activePlayer.name}. Your Token is: ${activePlayer.mark}`,
-      "color: white; background-color: black; font-size: larger"
-    );
-    return true;
-  };
-
   const playRound = (row, column) => {
     try {
-      gameBoard.placeMark(row, column, activePlayer.mark);
+      if (gameState === "ongoing") {
+        gameBoard.placeMark(row, column, activePlayer.mark);
 
-      if (checkForWin(board, activePlayer.mark)) {
-        gameBoard.displayBoard();
-        console.log(
-          `%c${activePlayer.name} has won the game. Use the game.resetBoard() function to play again!`,
-          "color: yellow; background-color: black; font-size: larger"
-        );
-      } else {
-        switchActivePlayer();
+        if (checkForWin(board, activePlayer.mark)) {
+          gameState = "won";
+        } else {
+          switchActivePlayer();
+          turn += 1;
 
-        turn += 1;
-
-        newRound();
+          if (turn === 10) gameState = "tied";
+        }
       }
+
+      return false;
     } catch (e) {
       console.error(
         `%c${e.message}`,
         "color: red; background-color: black; font-size: larger"
       );
+
+      return false;
     }
   };
 
-  const startOver = () => {
+  const newGame = () => {
     activePlayer = playerOne;
     turn = 1;
+    gameState = "ongoing";
     board = gameBoard.generateBoard();
     console.clear();
-    newRound();
   };
 
-  newRound();
-
-  console.log(
-    "%cYou can play using the game.playRound() function! \n",
-    "color: white; background-color: black; font-size: larger"
-  );
+  newGame();
 
   const getTurn = () => turn;
   const getActivePlayer = () => activePlayer;
   const getBoard = () => board;
+  const getGameState = () => gameState;
 
-  return { getBoard, playRound, startOver, getActivePlayer, getTurn };
+  return {
+    getBoard,
+    playRound,
+    newGame,
+    getActivePlayer,
+    getTurn,
+    getGameState,
+  };
 }
 
 (function displayController() {
