@@ -129,7 +129,6 @@ function gameController() {
     turn = 1;
     gameState = "ongoing";
     board = gameBoard.generateBoard();
-    console.clear();
   };
 
   newGame();
