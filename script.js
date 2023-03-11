@@ -112,6 +112,8 @@ function gameController() {
   let turn = 1;
   let gameState = "ongoing";
 
+  let winningCoordinates = [];
+
   const switchActivePlayer = () => {
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
   };
@@ -121,14 +123,17 @@ function gameController() {
       if (gameState === "ongoing") {
         gameBoard.placeMark(row, column, activePlayer.mark);
 
-        if (checkForWin(board, activePlayer.mark)) {
+        winningCoordinates = checkForWin(board, activePlayer.mark);
+
+        if (winningCoordinates) {
           gameState = "won";
         } else {
           switchActivePlayer();
           turn += 1;
-
-          if (turn === 10) gameState = "tied";
+          winningCoordinates.lenth = 0;
         }
+
+        if (turn === 10) gameState = "tied";
       }
 
       return false;
@@ -155,6 +160,7 @@ function gameController() {
   const getActivePlayer = () => activePlayer;
   const getBoard = () => board;
   const getGameState = () => gameState;
+  const getWinningCoordinates = () => winningCoordinates;
 
   return {
     getBoard,
@@ -163,6 +169,7 @@ function gameController() {
     getActivePlayer,
     getTurn,
     getGameState,
+    getWinningCoordinates,
   };
 }
 
