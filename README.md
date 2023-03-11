@@ -1,22 +1,25 @@
 # Tic-tac-toe
+
 ## The Odin Project - JavaScript Course
 
 This is a browser version of the popular game tic-tac-toe (also known as Xs and Os.) This project was made as part of the Odin Project's JavaScript course.
 
 ## Overview
-- You can play using the broswer console.
 
-### How to play
-- Use the `game.playRound(row, column)` function. `row` being the number of the row (0, 1, 2) and `column` being the number of the column (0, 1, 2) you'd like to place your mark on.
-- Once a player wins or if the game ends in a tie, use the `game.resetBoard()` function to start over.
+- Just click on any cell to start playing. The game currently supports two human players.
 
 ### To-do
-- [ ] Code refactoring **(Work in progress)**
-- [ ] User interface
+
+- [x] Code refactoring
+- [x] User interface
 
 ### Built with
+
+- HTML
+- CSS
 - JavaScript
 
 ### Outcome
-- Learned more about factory functions and objects.
-- Improved understanding of scope and closure.
+
+- Learned more about factory functions, objects, IIFEs and the module pattern.
+- Improved understanding of scopes and closures.
