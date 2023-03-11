@@ -119,3 +119,14 @@ body {
   min-height: 50px;
   max-height: 10vh;
 }
+
+a {
+  text-decoration: none;
+  color: darkgreen;
+
+  transition: color 0.5s;
+}
+
+a:hover {
+  color: black;
+}
