@@ -208,13 +208,23 @@ function gameController() {
   };
 
   const updatePlayerInfo = () => {
-    const turn = game.getTurn();
     const activePlayer = game.getActivePlayer();
-    const turnInfo = document.querySelector(".turn");
     const playerInfo = document.querySelector(".player-info");
 
-    turnInfo.textContent = `Turn: ${turn}`;
     playerInfo.textContent = `The current active player is ${activePlayer.name} (${activePlayer.mark})`;
+  };
+
+  const highlightWinCoordinates = () => {
+    const winningCoordinates = game.getWinningCoordinates();
+
+    winningCoordinates.forEach((coordinate) => {
+      console.log(coordinate);
+      const winCell = document.querySelector(
+        `[data-row="${coordinate[0]}"][data-column="${coordinate[1]}"]`
+      );
+
+      winCell.classList.add("win-cell");
+    });
   };
 
   const gameStateHandler = () => {
@@ -222,8 +232,10 @@ function gameController() {
     const announcement = document.querySelector(".announcement");
     const activePlayer = game.getActivePlayer();
 
-    if (gameState === "won")
-      announcement.textContent = `The winner is ${activePlayer.name}`;
+    if (gameState === "won") {
+      announcement.textContent = `${activePlayer.name} has won the game!`;
+      highlightWinCoordinates();
+    }
 
     if (gameState === "tied") announcement.textContent = "The game is tied!";
   };
