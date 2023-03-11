@@ -90,6 +90,10 @@ body {
   box-shadow: none;
 }
 
+.win-cell {
+  background-color: darkturquoise;
+}
+
 .reset-button {
   margin-bottom: auto;
   width: 300px;
