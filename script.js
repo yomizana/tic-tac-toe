@@ -258,9 +258,7 @@ function gameController() {
     });
 
     resetButton.addEventListener("click", () => {
-      game.newGame();
-      populateGrid();
-      updatePlayerInfo();
+      window.location.reload();
     });
   };
 
