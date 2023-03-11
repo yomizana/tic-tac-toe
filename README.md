@@ -4,6 +4,8 @@
 
 This is a browser version of the popular game tic-tac-toe (also known as Xs and Os.) This project was made as part of the Odin Project's JavaScript course.
 
+**Live demo**: https://yomizana.github.io/tic-tac-toe/
+
 ## Overview
 
 - Just click on any cell to start playing. The game currently supports two human players.
