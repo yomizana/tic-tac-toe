@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 function Player(name, mark) {
   return { name, mark };
 }
