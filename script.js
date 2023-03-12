@@ -25,68 +25,28 @@ const gameBoard = (() => {
   return { generateBoard, placeMark };
 })();
 
-// Checks the board and returns the winning coordinates if there's any
 function checkForWin(board, mark) {
-  const winningCoordinates = [];
-  let count = 0;
+  const winConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
 
-  // Horizontal Check
-  for (let i = 0; i < 3; i += 1) {
-    for (let j = 0; j < 3; j += 1) {
-      if (board[i][j] === mark) {
-        winningCoordinates.push([i, j]);
-        count += 1;
-        if (count === 3) {
-          return winningCoordinates;
-        }
-      }
-    }
-    winningCoordinates.length = 0;
-    count = 0;
-  }
+  for (let i = 0; i < 8; i += 1) {
+    const winCondition = winConditions[i];
+    const cells = [
+      board[winCondition[0]],
+      board[winCondition[1]],
+      board[winCondition[2]],
+    ];
 
-  // Vertical Check
-  for (let i = 0; i < 3; i += 1) {
-    for (let j = 0; j < 3; j += 1) {
-      if (board[j][i] === mark) {
-        winningCoordinates.push([j, i]);
-        count += 1;
-        if (count === 3) {
-          return winningCoordinates;
-        }
-      }
-    }
-    winningCoordinates.length = 0;
-    count = 0;
-  }
-
-  // Diagonal Check #1
-  for (let i = 0; i < 3; i += 1) {
-    if (board[i][i] === mark) {
-      winningCoordinates.push([i, i]);
-      count += 1;
-      if (count === 3) {
-        return winningCoordinates;
-      }
-    } else {
-      winningCoordinates.length = 0;
-      count = 0;
-    }
-  }
-
-  // Diagonal Check #2
-  let column = 2;
-  for (let i = 0; i < 3; i += 1) {
-    if (board[i][column] === mark) {
-      winningCoordinates.push([i, column]);
-      count += 1;
-      column -= 1;
-      if (count === 3) {
-        return winningCoordinates;
-      }
-    } else {
-      winningCoordinates.length = 0;
-      count = 0;
+    if (cells[0] === mark && cells[1] === mark && cells[2] === mark) {
+      return winCondition;
     }
   }
 
