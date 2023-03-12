@@ -5,32 +5,24 @@ function Player(name, mark) {
 const gameBoard = (() => {
   const board = [];
 
-  // Generates a 3x3 array grid filled with 0s
   const generateBoard = () => {
-    for (let i = 0; i < 3; i += 1) {
-      board[i] = [];
-      for (let j = 0; j < 3; j += 1) {
-        board[i].push("");
-      }
+    for (let i = 0; i < 9; i += 1) {
+      board.push("");
     }
 
     return board;
   };
 
-  // Places player.mark in the provided coordinates
-  const placeMark = (row, column, mark) => {
-    if (board[row][column] === "") {
-      board[row][column] = mark;
+  const placeMark = (index, mark) => {
+    if (board[index] === "") {
+      board[index] = mark;
       return true;
     }
 
     throw new Error("This position already contains a value!");
   };
 
-  // Displays the board on the console
-  const displayBoard = () => console.log(board);
-
-  return { generateBoard, placeMark, displayBoard };
+  return { generateBoard, placeMark };
 })();
 
 // Checks the board and returns the winning coordinates if there's any
