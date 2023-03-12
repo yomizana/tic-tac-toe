@@ -58,29 +58,28 @@ function gameController() {
   const playerTwo = Player("Player Two", "O");
 
   let activePlayer = playerOne;
-  let board = gameBoard.generateBoard();
+  const board = gameBoard.generateBoard();
   let turn = 1;
   let gameState = "ongoing";
 
-  let winningCoordinates = [];
+  let winCoordinates = [];
 
   const switchActivePlayer = () => {
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
   };
 
-  const playRound = (row, column) => {
+  const playRound = (index) => {
     try {
       if (gameState === "ongoing") {
-        gameBoard.placeMark(row, column, activePlayer.mark);
+        gameBoard.placeMark(index, activePlayer.mark);
 
-        winningCoordinates = checkForWin(board, activePlayer.mark);
+        winCoordinates = checkForWin(board, activePlayer.mark);
 
-        if (winningCoordinates) {
+        if (winCoordinates) {
           gameState = "won";
         } else {
           switchActivePlayer();
           turn += 1;
-          winningCoordinates.lenth = 0;
         }
 
         if (turn === 10) gameState = "tied";
@@ -88,38 +87,23 @@ function gameController() {
 
       return false;
     } catch (e) {
-      console.error(
-        `%c${e.message}`,
-        "color: red; background-color: black; font-size: larger"
-      );
-
       return false;
     }
   };
-
-  const newGame = () => {
-    activePlayer = playerOne;
-    turn = 1;
-    gameState = "ongoing";
-    board = gameBoard.generateBoard();
-  };
-
-  newGame();
 
   const getTurn = () => turn;
   const getActivePlayer = () => activePlayer;
   const getBoard = () => board;
   const getGameState = () => gameState;
-  const getWinningCoordinates = () => winningCoordinates;
+  const getWinCoordinates = () => winCoordinates;
 
   return {
     getBoard,
     playRound,
-    newGame,
     getActivePlayer,
     getTurn,
     getGameState,
-    getWinningCoordinates,
+    getWinCoordinates,
   };
 }
 
