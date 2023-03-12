@@ -110,34 +110,24 @@ function gameController() {
 (function displayController() {
   const game = gameController();
 
-  // Generates 3x3 grid
   const generateGrid = () => {
     const gridContainer = document.querySelector(".grid-container");
 
-    for (let i = 0; i < 3; i += 1) {
-      for (let j = 0; j < 3; j += 1) {
-        const cell = document.createElement("button");
-        cell.classList.add("cell");
-        cell.dataset.row = [i];
-        cell.dataset.column = [j];
+    for (let i = 0; i < 9; i += 1) {
+      const cell = document.createElement("button");
+      cell.classList.add("cell");
 
-        gridContainer.appendChild(cell);
-      }
+      gridContainer.appendChild(cell);
     }
   };
 
-  // Populates 3x3 grid with board values
-  const populateGrid = () => {
+  const populateCells = () => {
     const board = game.getBoard();
 
-    for (let i = 0; i < 3; i += 1) {
-      for (let j = 0; j < 3; j += 1) {
-        const cell = document.querySelector(
-          `[data-row="${i}"][data-column="${j}"]`
-        );
+    for (let i = 0; i < 9; i += 1) {
+      const cell = document.querySelectorAll(".cell");
 
-        cell.textContent = board[i][j];
-      }
+      cell[i].textContent = board[i];
     }
   };
 
@@ -149,13 +139,10 @@ function gameController() {
   };
 
   const highlightWinCoordinates = () => {
-    const winningCoordinates = game.getWinningCoordinates();
+    const winCoordinates = game.getWinCoordinates();
 
-    winningCoordinates.forEach((coordinate) => {
-      console.log(coordinate);
-      const winCell = document.querySelector(
-        `[data-row="${coordinate[0]}"][data-column="${coordinate[1]}"]`
-      );
+    winCoordinates.forEach((index) => {
+      const winCell = document.querySelectorAll(".cell")[index];
 
       winCell.classList.add("win-cell");
     });
@@ -178,17 +165,15 @@ function gameController() {
     const cells = document.querySelectorAll(".cell");
     const resetButton = document.querySelector(".reset-button");
 
-    const cellClickEvent = (row, column) => {
-      game.playRound(row, column);
-      populateGrid();
+    const cellClickEvent = (index) => {
+      game.playRound(index);
+      populateCells();
       updatePlayerInfo();
       gameStateHandler();
     };
 
-    cells.forEach((cell) => {
-      cell.addEventListener("click", () =>
-        cellClickEvent(cell.dataset.row, cell.dataset.column)
-      );
+    cells.forEach((cell, index) => {
+      cell.addEventListener("click", () => cellClickEvent(index));
     });
 
     resetButton.addEventListener("click", () => {
@@ -197,7 +182,7 @@ function gameController() {
   };
 
   generateGrid();
-  populateGrid();
+  populateCells();
   updatePlayerInfo();
   clickEventHandler();
 })();
